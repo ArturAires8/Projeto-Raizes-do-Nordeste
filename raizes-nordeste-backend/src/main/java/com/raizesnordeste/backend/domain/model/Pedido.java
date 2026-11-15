@@ -1,5 +1,6 @@
 package com.raizesnordeste.backend.domain.model;
 
+import com.raizesnordeste.backend.domain.enums.CanalPedido;
 import com.raizesnordeste.backend.domain.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,10 @@ public class Pedido {
     @ManyToOne(optional = false)
     @JoinColumn(name = "unidade_id")
     private Unidade unidade;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "canal_pedido", nullable = false)
+    private CanalPedido canalPedido;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

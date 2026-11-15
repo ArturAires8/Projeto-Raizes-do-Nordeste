@@ -1,4 +1,4 @@
-package com.raizesnordeste.backend.application.service;
+package com.raizesnordeste.backend.application;
 
 import com.raizesnordeste.backend.api.dto.CadastroRequest;
 import com.raizesnordeste.backend.api.dto.LoginRequest;

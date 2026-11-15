@@ -3,7 +3,7 @@ package com.raizesnordeste.backend.api.controller;
 import com.raizesnordeste.backend.api.dto.CadastroRequest;
 import com.raizesnordeste.backend.api.dto.LoginRequest;
 import com.raizesnordeste.backend.api.dto.LoginResponse;
-import com.raizesnordeste.backend.application.service.AuthService;
+import com.raizesnordeste.backend.application.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
