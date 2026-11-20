@@ -1,9 +1,10 @@
 package com.raizesnordeste.backend.application.service;
 
-
 import com.raizesnordeste.backend.api.dto.ItemPedidoRequest;
 import com.raizesnordeste.backend.api.dto.PedidoRequest;
 import com.raizesnordeste.backend.api.dto.PedidoResponse;
+import com.raizesnordeste.backend.domain.model.Auditoria;
+import com.raizesnordeste.backend.domain.enums.CanalPedido;
 import com.raizesnordeste.backend.domain.enums.StatusPedido;
 import com.raizesnordeste.backend.domain.model.*;
 import com.raizesnordeste.backend.infrastructure.repository.*;
@@ -24,6 +25,7 @@ public class PedidoService {
     private final UnidadeRepository unidadeRepository;
     private final ProdutoRepository produtoRepository;
     private final EstoqueRepository estoqueRepository;
+    private final AuditoriaRepository auditoriaRepository;
 
     @Transactional
     public PedidoResponse criarPedido(PedidoRequest request) {
@@ -86,7 +88,15 @@ public class PedidoService {
 
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
-        // 6. Retorna a resposta
+        // 6. Auditoria
+        auditoriaRepository.save(Auditoria.builder()
+                .acao("CRIACAO_PEDIDO")
+                .entidade("Pedido")
+                .entidadeId(pedidoSalvo.getId())
+                .detalhes("Pedido criado via canal " + pedidoSalvo.getCanalPedido())
+                .build());
+
+        // 7. Retorna a resposta
         return new PedidoResponse(
                 pedidoSalvo.getId(),
                 pedidoSalvo.getCliente().getNome(),
@@ -98,4 +108,27 @@ public class PedidoService {
         );
     }
 
+    // Método de listagem
+    public List<PedidoResponse> listarPedidos(CanalPedido canalPedido) {
+        List<Pedido> pedidos;
+        if (canalPedido != null) {
+            pedidos = pedidoRepository.findByCanalPedido(canalPedido);
+        } else {
+            pedidos = pedidoRepository.findAll();
+        }
+
+        return pedidos.stream().map(p -> new PedidoResponse(
+                p.getId(),
+                p.getCliente().getNome(),
+                p.getUnidade().getNome(),
+                p.getCanalPedido(),
+                p.getStatus(),
+                p.getValorTotal(),
+                p.getCriadoEm()
+        )).toList();
+    }
 }
+
+
+
+

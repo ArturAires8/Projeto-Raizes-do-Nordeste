@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.security.core.AuthenticationException;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
@@ -14,6 +15,18 @@ import java.time.LocalDateTime;
 @Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+        ErrorResponse error = new ErrorResponse(
+                "NAO_AUTORIZADO",
+                "Credenciais inválidas (e-mail ou senha incorretos).",
+                LocalDateTime.now(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error); // Retorna 401 em vez de 500
+    }
 
     // Captura erros de regra de negócio (ex: Estoque insuficiente, E-mail já cadastrado)
     @ExceptionHandler(IllegalArgumentException.class)

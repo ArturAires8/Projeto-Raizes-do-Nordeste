@@ -175,6 +175,41 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "T11 - Filtrar Pedido por Canal",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluLmZpbmFsQHRlc3RlLmNvbSIsImlhdCI6MTc5NTIwNDY0NywiZXhwIjoxNzk1MjkxMDQ3fQ.XGsAJggPrlEgQ5droyo9MnWPp23eBKbhCusLWgTLptQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pedidos?canalPedido=TOTEM",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ],
+              "query": [
+                {
+                  "key": "canalPedido",
+                  "value": "TOTEM"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },

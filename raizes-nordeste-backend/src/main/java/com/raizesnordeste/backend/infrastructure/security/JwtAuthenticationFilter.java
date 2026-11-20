@@ -1,6 +1,5 @@
 package com.raizesnordeste.backend.infrastructure.security;
 
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,15 +32,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
 
+        // Se não tem token, segue o fluxo (o Spring Security vai barrar depois)
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         final String jwt = authHeader.substring(7);
+        String userEmail = null;
 
-        // ESTA É A LINHA QUE ESTAVA FALTANDO OU COM ERRO:
-        final String userEmail = jwtService.extrairUsername(jwt);
+        try {
+            // Tenta extrair o e-mail. Se o token for inválido, ele cai no catch.
+            userEmail = jwtService.extrairUsername(jwt);
+        } catch (Exception e) {
+            // Token inválido, apenas ignora e segue o fluxo
+        }
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
