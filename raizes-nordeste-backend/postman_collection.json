@@ -1,0 +1,385 @@
+{
+  "info": {
+    "_postman_id": "3f5f0630-1c51-49d9-8fd8-cf4c3c4a362b",
+    "name": "Projeto Raizes do Nordeste",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41542012"
+  },
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "T01 - Login Valido",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@teste.com\",\r\n  \"senha\": \"Senha@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T02 - Cadastro de Usuario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Cliente Teste\",\r\n  \"email\": \"cliente@teste.com\",\r\n  \"senha\": \"Senha@123\",\r\n  \"role\": \"CLIENTE\",\r\n  \"consentimentoFidelidade\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/cadastro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "cadastro"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Pedidos",
+      "item": [
+        {
+          "name": "T03 - Criar Pedido Valido",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clienteId\": 2,\r\n  \"unidadeId\": 1,\r\n  \"canalPedido\": \"TOTEM\",\r\n  \"itens\": [\r\n    { \"produtoId\": 1, \"quantidade\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T04 - Pedido Sem Token (Erro)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clienteId\": 2,\r\n  \"unidadeId\": 1,\r\n  \"canalPedido\": \"TOTEM\",\r\n  \"itens\": [\r\n    { \"produtoId\": 1, \"quantidade\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T05 - Pedido Sem Canal (Erro)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clienteId\": 2,\r\n  \"unidadeId\": 1,\r\n  \"itens\": [\r\n    { \"produtoId\": 1, \"quantidade\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3 . Pagamentos",
+      "item": [
+        {
+          "name": "T06 - Pagamento Aprovado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pedidoId\": 4,\r\n  \"simularRecusa\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pagamentos/mock",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pagamentos",
+                "mock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T07 - Pagamento Recusado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pedidoId\": 5,\r\n  \"simularRecusa\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pagamentos/mock",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pagamentos",
+                "mock"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Erros",
+      "item": [
+        {
+          "name": "T08 - Estoque Insuficiente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clienteId\": 2,\r\n  \"unidadeId\": 1,\r\n  \"canalPedido\": \"TOTEM\",\r\n  \"itens\": [\r\n    { \"produtoId\": 1, \"quantidade\": 999 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T09 - Produto Inexistente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clienteId\": 2,\r\n  \"unidadeId\": 1,\r\n  \"canalPedido\": \"TOTEM\",\r\n  \"itens\": [\r\n    { \"produtoId\": 999, \"quantidade\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T10 - Pagamento Pedido Inexistente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluQHRlc3RlLmNvbSIsImlhdCI6MTc5NTE5MTE0NCwiZXhwIjoxNzk1Mjc3NTQ0fQ.pPg6UAYMcnxn1bwZSHBODyExgmajHG_GHbE7mYptPxQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pedidoId\": 999,\r\n  \"simularRecusa\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pagamentos/mock",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pagamentos",
+                "mock"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
